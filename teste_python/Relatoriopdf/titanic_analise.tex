@@ -1,0 +1,1536 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Análise Estatística - Dados Titanic\\
+    	José Wesley Lima Silva}
+ 
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Análise Estatística - Dados
+Titanic}\label{anuxe1lise-estatuxedstica---dados-titanic}
+
+    \subsection{Explorando o problema}\label{explorando-o-problema}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{}JWLS 20/07}
+        \PY{c+c1}{\PYZsh{}\PYZsh{}Bibliotecas python necessárias}
+        \PY{c+c1}{\PYZsh{}Manipulacao de dados}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        
+        \PY{c+c1}{\PYZsh{}Testes e recursos estatisticos}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{from} \PY{n+nn}{scipy} \PY{k}{import} \PY{n}{stats}
+        
+        \PY{c+c1}{\PYZsh{}Analise grafica}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{lines} \PY{k}{as} \PY{n+nn}{mlines}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        
+        \PY{c+c1}{\PYZsh{}Modelos, metricas e Machine Learning}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{LabelEncoder}\PY{p}{,} \PY{n}{OneHotEncoder}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{StandardScaler}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LinearRegression}\PY{p}{,}\PY{n}{LogisticRegression}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble}\PY{n+nn}{.}\PY{n+nn}{forest} \PY{k}{import} \PY{n}{RandomForestRegressor}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{svm} \PY{k}{import} \PY{n}{SVR}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{r2\PYZus{}score}\PY{p}{,} \PY{n}{mean\PYZus{}squared\PYZus{}error}
+\end{Verbatim}
+
+
+    Primeiramente é nescessário conhecer o banco de dados que será utilizado
+para obter as respostas das perguntas do teste. Para qualquer banco de
+dados é preciso destinguir os tipos de variáveis. Em geral as variáveis
+se dividem em qualitativas (categóricas) e quantitaivas, por sua vez
+variáveis qualitativas se dividem nominais (por exemplo, sexo) e
+ordinais (por exemplo, escolaridade), já as quantitativas se dividem em
+discretas e contínuas. Também é importante verificar se todas as
+variáveis trazem informações que explicam o fenômeno estudado, pois em
+geral, esses problemas envolvem grandes quantidade de dados que exigem
+alto custo computacional. Em alguns casos certas variáveis podem ser
+combinadas gerando outras que possuem maiores informações.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{}Importando o banco de dados}
+        \PY{n}{dados} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/home/wesley/MEGAsync/teste\PYZus{}estatistico/titanic\PYZus{}orig.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{dados}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{}Analisando as caracteristicas dos dados, 5 primeiras linhas }
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:}    PassengerId  Survived  Pclass  \textbackslash{}
+        0            1         0       3   
+        1            2         1       1   
+        2            3         1       3   
+        3            4         1       1   
+        4            5         0       3   
+        
+                                                        Name     Sex   Age  SibSp  \textbackslash{}
+        0                            Braund, Mr. Owen Harris    male  22.0      1   
+        1  Cumings, Mrs. John Bradley (Florence Briggs Th{\ldots}  female  38.0      1   
+        2                             Heikkinen, Miss. Laina  female  26.0      0   
+        3       Futrelle, Mrs. Jacques Heath (Lily May Peel)  female  35.0      1   
+        4                           Allen, Mr. William Henry    male  35.0      0   
+        
+           Parch            Ticket     Fare Cabin Embarked  
+        0      0         A/5 21171   7.2500   NaN        S  
+        1      0          PC 17599  71.2833   C85        C  
+        2      0  STON/O2. 3101282   7.9250   NaN        S  
+        3      0            113803  53.1000  C123        S  
+        4      0            373450   8.0500   NaN        S  
+\end{Verbatim}
+            
+    Neste banco de dados temos variáveis categóricas e quantitativas
+(discretas e contínuas). As variáveis categóricas aprecem na forma
+numérica (int) e de texto (str), em python temos que transformar as
+variáveis de texto em númericas. Também é possível verificar a
+existência de valores faltantes 'NaN' nas variáveis Age, Cabin e
+Embarked.
+
+\subsubsection{Valores faltantes}\label{valores-faltantes}
+
+O tratamento de valores faltantes é parte crucial para qualquer análise
+de dados, em geral existem diversas formas de tratá-los. A forma mais
+simples é substituir NaN's pela média, mediana, moda ou simplesmente (em
+casos extremos ou que não gerem perda de informações) a exclusão da
+instância. quando se exige maior precisão pode-se optar por abordagens
+mais complexas, com uso de modelos de regressão simples ou multivariados
+ou de machine learning para estimativa de valores faltantes. Antes de
+começar a preencher NaN's é importante verificar se essa variável é
+importante para o estudo e quais outras variáveis podem ser utilizadas
+para estimar um valor faltante. Existem diferentes formas de imputação
+de valores faltantes, algumas são:
+
+Imputação simples
+
+Existindo poucos valores NaN's na variável estudada podemos substituí-lo
+utilizando alguma medida de tendência central, é uma forma mais simples
+e rápida.
+
+Imputação simples com regressão
+
+Neste método são considerados os valores das demais características para
+estimar o valor faltante. Isto pode ser feito baseado em modelos de
+regressão logístico (binária), multinomial ou linear.
+
+Imputação múltipla
+
+A Imputação Múltipla é uma técnica para analisar bancos de dados onde
+algumas entradas são faltantes. A aplicação dessa técnica requer três
+passos: imputação, análise e agrupamento.
+
+O banco estudado possui valores faltantes nas variáveis Age, Cabin e
+Embarked. Calculando o total de NaN podemos identificar a melhor forma
+de preencher esses valores. Assim, calculamos a soma de valores
+faltantes para cada variável:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Soma de valores faltantes em Age:      }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{dados}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Soma de valores faltantes em Cabin:    }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{dados}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cabin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Soma de valores faltantes em Embarked: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{dados}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Embarked}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Soma de valores faltantes em Age:       177
+Soma de valores faltantes em Cabin:     687
+Soma de valores faltantes em Embarked:  2
+
+    \end{Verbatim}
+
+    A variável Cabin é composta de mais de 50\% de valores faltantes.
+Estimar esses valores pode trazer um viés para futuras análies, dessa
+forma a melhor opção é excluir essa variável de nosso banco de dados.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{dados2} \PY{o}{=} \PY{n}{dados}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cabin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)} \PY{c+c1}{\PYZsh{}Excluindo a coluna Cabin}
+        \PY{n}{dados2}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}    PassengerId  Survived  Pclass  \textbackslash{}
+        0            1         0       3   
+        1            2         1       1   
+        2            3         1       3   
+        3            4         1       1   
+        4            5         0       3   
+        
+                                                        Name     Sex   Age  SibSp  \textbackslash{}
+        0                            Braund, Mr. Owen Harris    male  22.0      1   
+        1  Cumings, Mrs. John Bradley (Florence Briggs Th{\ldots}  female  38.0      1   
+        2                             Heikkinen, Miss. Laina  female  26.0      0   
+        3       Futrelle, Mrs. Jacques Heath (Lily May Peel)  female  35.0      1   
+        4                           Allen, Mr. William Henry    male  35.0      0   
+        
+           Parch            Ticket     Fare Embarked  
+        0      0         A/5 21171   7.2500        S  
+        1      0          PC 17599  71.2833        C  
+        2      0  STON/O2. 3101282   7.9250        S  
+        3      0            113803  53.1000        S  
+        4      0            373450   8.0500        S  
+\end{Verbatim}
+            
+    A variável Embarked possui dois valores faltantes, uma abordagem simples
+que pode ser utilizada e que não cause viés nas inferências posteriores
+é substituir esses valores pela moda, já que estamos trabalhando com
+variáveis categóricas. Dessa forma, vamos encontrar a moda e substituir
+nos valores falatantes:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{moda} \PY{o}{=} \PY{n}{dados2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Embarked}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{mode}\PY{p}{(}\PY{p}{)}
+        \PY{n}{dados2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Embarked}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{n}{moda}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{dados2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Embarked}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0
+
+    \end{Verbatim}
+
+    A variável idade apresenta 177 valores omissos. A idade é uma variável
+mais complexa para ser estimada e sabemos que utilizar a média ou
+mediana não é a melhor solução, pois, podemos gerar um viés negativo ou
+positivo na nossa análise. A média desses 177 valores aumentarão a
+frequência da classe média da idade. Uma forma mais coerente é estimar
+as idades faltantes com modelos de regressão simples ou múltiplos ou de
+machine learning. Para isso, devemos utilizar o maior número de
+variáveis possíveis e verificar se as mesmas contribuem para a
+estimativa. Antes de estimar a idade é preciso tentar extrair mais
+informações dos dados, pricipalmente verificar se é possível criar novas
+variáveis ou excluir as menos importantes.
+
+\subsubsection{Novas variáveis}\label{novas-variuxe1veis}
+
+A combinação de uma ou mais variáveis pode ajudar na estimativa de
+sobreviventes do Titanic. Uma variável que pode ser facilmente estimada
+é o tamanho da família, pois temos as variáveis SibSp que indica o
+número de irmãos ou esposa/esposo e Parch que indica o número de pais e
+ou filhos. Somando estas variáveis e acrescentando 1 "a própria pessoa",
+temos o tamanho da família:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{}Tamanho da familia}
+        \PY{n}{dados2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Family}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dados2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SibSp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{n}{dados2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Parch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{+} \PY{l+m+mi}{1}
+        \PY{n}{dados2}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:}    PassengerId  Survived  Pclass  \textbackslash{}
+        0            1         0       3   
+        1            2         1       1   
+        2            3         1       3   
+        3            4         1       1   
+        4            5         0       3   
+        
+                                                        Name     Sex   Age  SibSp  \textbackslash{}
+        0                            Braund, Mr. Owen Harris    male  22.0      1   
+        1  Cumings, Mrs. John Bradley (Florence Briggs Th{\ldots}  female  38.0      1   
+        2                             Heikkinen, Miss. Laina  female  26.0      0   
+        3       Futrelle, Mrs. Jacques Heath (Lily May Peel)  female  35.0      1   
+        4                           Allen, Mr. William Henry    male  35.0      0   
+        
+           Parch            Ticket     Fare Embarked  Family  
+        0      0         A/5 21171   7.2500        S       2  
+        1      0          PC 17599  71.2833        C       2  
+        2      0  STON/O2. 3101282   7.9250        S       1  
+        3      0            113803  53.1000        S       2  
+        4      0            373450   8.0500        S       1  
+\end{Verbatim}
+            
+    Uma observação importante é, deve-se ter cuidado ao se criar novas
+variáveis, pois elas podem ser autocorrelacionadas e, dessa forma,
+estariamos inserindo autocorrelção ao nosso modelo. Outro ponto
+importante é que nem sempre muitas variáveis explicam melhor os dados, e
+o fundamento da regressão é utilizar sempre modelos mais simples para
+estimativas.
+
+A variável Name por ser categórica e cada nome representar uma
+categoria, não traz muita informação para estimar os sobreviventes.
+Entretanto, ela traz um pronome de tratamento ou grau de título, dessa
+forma, é importante extrair essa informação e gerar uma nova variável
+categórica com o título de cada pessoa.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{}Quebra a string nome e extrai a informacao do titulo de cada pessoa}
+        \PY{n}{dados2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dados2}\PY{o}{.}\PY{n}{Name}\PY{o}{.}\PY{n}{str}\PY{o}{.}\PY{n}{extract}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{([A\PYZhy{}Za\PYZhy{}z]+)}\PY{l+s+s1}{\PYZbs{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{expand}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}
+        \PY{n}{dados2}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:}    PassengerId  Survived  Pclass  \textbackslash{}
+        0            1         0       3   
+        1            2         1       1   
+        2            3         1       3   
+        3            4         1       1   
+        4            5         0       3   
+        
+                                                        Name     Sex   Age  SibSp  \textbackslash{}
+        0                            Braund, Mr. Owen Harris    male  22.0      1   
+        1  Cumings, Mrs. John Bradley (Florence Briggs Th{\ldots}  female  38.0      1   
+        2                             Heikkinen, Miss. Laina  female  26.0      0   
+        3       Futrelle, Mrs. Jacques Heath (Lily May Peel)  female  35.0      1   
+        4                           Allen, Mr. William Henry    male  35.0      0   
+        
+           Parch            Ticket     Fare Embarked  Family Title  
+        0      0         A/5 21171   7.2500        S       2    Mr  
+        1      0          PC 17599  71.2833        C       2   Mrs  
+        2      0  STON/O2. 3101282   7.9250        S       1  Miss  
+        3      0            113803  53.1000        S       2   Mrs  
+        4      0            373450   8.0500        S       1    Mr  
+\end{Verbatim}
+            
+    Agora temos os títulos de cada pessoa, entretanto ficamos com 17 títulos
+diferentes. Alguns desses títulos são semelhantes ou estão na mesma
+classe de grau. Dessa forma, podemos reduzir o número de títulos
+agrupando os semelhantes na mesma categoria.
+
+Os títulos dados a homens nobres ou militares com algum estatuto são
+Capt, Col, Don, Major, Jonkheer e Sir, já mulheres nobres e de estatuto
+social elevado recebem títulos de Dona, Lady e Countess. Os títulos de
+Miss e Mlle são para mulheres solteiras, Ms designa uma mulher sem
+indicaçao de estado civil, porém nos 2 casos ocorridos, as mesmas
+viajavam sozinhas, assim foram consideradas solteiras. As mulheres
+casadas são chamadas de Mrs e Mme. Dessa forma, podemos agrupar alguns
+desses títulos com outros de maior frequência. O títulos de menor
+frequência e atribuídos a pessoas nobres foram substituídos por Rich.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{}Frequência de titulos}
+        \PY{n}{pd}\PY{o}{.}\PY{n}{crosstab}\PY{p}{(}\PY{n}{dados2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{dados2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:} Sex       female  male
+        Title                 
+        Capt           0     1
+        Col            0     2
+        Countess       1     0
+        Don            0     1
+        Dr             1     6
+        Jonkheer       0     1
+        Lady           1     0
+        Major          0     2
+        Master         0    40
+        Miss         182     0
+        Mlle           2     0
+        Mme            1     0
+        Mr             0   517
+        Mrs          125     0
+        Ms             1     0
+        Rev            0     6
+        Sir            0     1
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{}Agrupando passageiros em titulos mais comuns}
+        \PY{n}{dados2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dados2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Jonkheer}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Don}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Capt}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Major}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Col}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Countess}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Lady}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Dr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rev}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sir}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Rich}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{dados2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dados2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mlle}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ms}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Miss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{dados2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{dados2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mme}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mrs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{}Titulos por sexo}
+         \PY{n}{pd}\PY{o}{.}\PY{n}{crosstab}\PY{p}{(}\PY{n}{dados2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{dados2}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}10}]:} Sex     female  male
+         Title               
+         Master       0    40
+         Miss       185     0
+         Mr           0   517
+         Mrs        126     0
+         Rich         3    20
+\end{Verbatim}
+            
+    Depois desse agrupamento ficamos com 5 categorias na variável título.
+Agora a variável Name não é mais importante podendo ser excluída do
+nosso banco de dados. Outra variável que ainda não foi tratada é a
+Ticket. Analisando um pouco essa variável pode-se notar que ela
+apresenta valores numéricos e de texto, em geral as letras podem indicar
+uma classe de valores dos tickets. Porém, não existe uma descrição para
+essa variável e as informações obtidas pela Classe social e pelo valor
+pago da passagem trazem bastante informação sobre as condições dos
+passageiros. Assim, essas variáveis podem ser excluídas do banco de
+dados.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{}Excluindo Name e Ticket}
+         \PY{n}{dados3} \PY{o}{=} \PY{n}{dados2}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ticket}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{dados3}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:}    PassengerId  Survived  Pclass     Sex   Age  SibSp  Parch     Fare  \textbackslash{}
+         0            1         0       3    male  22.0      1      0   7.2500   
+         1            2         1       1  female  38.0      1      0  71.2833   
+         2            3         1       3  female  26.0      0      0   7.9250   
+         3            4         1       1  female  35.0      1      0  53.1000   
+         4            5         0       3    male  35.0      0      0   8.0500   
+         
+           Embarked  Family Title  
+         0        S       2    Mr  
+         1        C       2   Mrs  
+         2        S       1  Miss  
+         3        S       2   Mrs  
+         4        S       1    Mr  
+\end{Verbatim}
+            
+    \subsubsection{Variáveis categóricas e
+contínuas}\label{variuxe1veis-categuxf3ricas-e-contuxednuas}
+
+    O banco de dados está quase pronto para podermos realizar nossa
+exploração. Sabemos que nosso banco é composto de variáveis
+quantitativas (contínuas e discretas) e qualitativas "ou categóricas"
+(nominal e ordinal). As variáveis quantitativas estão prontas para
+análise, porém as categóricas precisam ser ajustadas para trabalharmos
+com python. A melhor forma de trabalhar com essas variáveis é atribuir
+valores para cada atributo, com isso não teremos problemas posteriores.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{}modulo LabelEncoder da biblioteca sklearn}
+         \PY{n}{labelencoder} \PY{o}{=} \PY{n}{LabelEncoder}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{dados4} \PY{o}{=} \PY{n}{dados3}
+         \PY{n}{dados4}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{labelencoder}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{dados4}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{dados4}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Embarked}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{labelencoder}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{dados4}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Embarked}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{dados4}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{labelencoder}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{dados4}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{dados4}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}Codificacoes}
+         \PY{c+c1}{\PYZsh{}Sex}
+         \PY{c+c1}{\PYZsh{}female = 0, male = 1,}
+         \PY{c+c1}{\PYZsh{}Embarked}
+         \PY{c+c1}{\PYZsh{}C = 0, Q = 1, S = 2}
+         \PY{c+c1}{\PYZsh{}Title}
+         \PY{c+c1}{\PYZsh{}Master = 0, Miss = 1, Mr = 2, Mrs = 3, Rich = 4}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:}    PassengerId  Survived  Pclass  Sex   Age  SibSp  Parch     Fare  Embarked  \textbackslash{}
+         0            1         0       3    1  22.0      1      0   7.2500         2   
+         1            2         1       1    0  38.0      1      0  71.2833         0   
+         2            3         1       3    0  26.0      0      0   7.9250         2   
+         3            4         1       1    0  35.0      1      0  53.1000         2   
+         4            5         0       3    1  35.0      0      0   8.0500         2   
+         
+            Family  Title  
+         0       2      2  
+         1       2      3  
+         2       1      1  
+         3       2      3  
+         4       1      2  
+\end{Verbatim}
+            
+    \subsubsection{Preenchendo NaN's de
+Idade}\label{preenchendo-nans-de-idade}
+
+    Com o banco de dados pronto é possível estimar os valores para idade.
+Seguiremos duas abordagens para identificarmos qual a mais apropriada. A
+primeira abordagem é ajustar um modelo linear múltiplo utilizando as
+demais variáveis para estimar a idade, a segunda abordagem é utilizar
+modelos de machine learning, Randon Forest e Máquinas de Vetores de
+Suporte. O modelo que obtiver melhores scores será utlizado para estimar
+a idade.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{}Gerando um banco de dados para idade}
+         
+         \PY{n}{dados\PYZus{}idade} \PY{o}{=} \PY{n}{dados4}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pclass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Embarked}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SibSp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Parch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fare}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Family}\PY{l+s+s1}{\PYZsq{}} \PY{p}{]}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{}Queremos estimar a idade para isso vamos usar apenas as intâncias com as idades completas}
+         \PY{c+c1}{\PYZsh{}Divindo o banco em idade\PYZus{}conhecida e idade\PYZus{}desconhecida}
+         
+         \PY{n}{idade\PYZus{}conh} \PY{o}{=} \PY{n}{dados\PYZus{}idade}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{dados\PYZus{}idade}\PY{o}{.}\PY{n}{Age}\PY{o}{.}\PY{n}{notnull}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+         \PY{n}{idade\PYZus{}desc} \PY{o}{=} \PY{n}{dados\PYZus{}idade}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{dados\PYZus{}idade}\PY{o}{.}\PY{n}{Age}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{}Definindo a variável resposta (dependente) e as variáveis preditoras (independentes)}
+         
+         \PY{n}{y} \PY{o}{=} \PY{n}{idade\PYZus{}conh}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{X} \PY{o}{=} \PY{n}{idade\PYZus{}conh}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:}\PY{p}{:}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{}Preparando as variáveis para estimar os valor de idade perdidas}
+         \PY{n}{X\PYZus{}p} \PY{o}{=} \PY{n}{idade\PYZus{}desc}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:}\PY{p}{:}\PY{p}{]}
+\end{Verbatim}
+
+
+    Na existência de variáveis categóricas, geralmente substituímos as
+categorias por números inteiros, porém em modelos de machine learning,
+isso pode causar um viés, pois o algoritmo pode considerar que existe
+uma relação de ordem na variável. Uma forma de corrigir esse problema é
+com uso de variáveis dummy, esse procedimento conciste em criar um vetor
+para cada fator e adicionar um valor binário 0 ou 1, para a ocorrência
+do fator, logo uma variável dummy com 3 fatores será substituída por 3
+vetores. Outra forma de diminuir o ruído dos dados é normalizar as
+variáveis, isso diminui a variância dos dados permitindo melhores
+ajustes.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{}Atribuindo variaveis dummy a variaveis categoricas}
+         \PY{n}{onehotencoder} \PY{o}{=} \PY{n}{OneHotEncoder}\PY{p}{(}\PY{n}{categorical\PYZus{}features} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+         \PY{n}{X\PYZus{}treino} \PY{o}{=} \PY{n}{onehotencoder}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X}\PY{p}{)}\PY{o}{.}\PY{n}{toarray}\PY{p}{(}\PY{p}{)}
+         \PY{n}{X\PYZus{}est} \PY{o}{=} \PY{n}{onehotencoder}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X\PYZus{}p}\PY{p}{)}\PY{o}{.}\PY{n}{toarray}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}Normalizando os dados}
+         \PY{n}{sc} \PY{o}{=} \PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}
+         \PY{n}{X\PYZus{}treino} \PY{o}{=} \PY{n}{sc}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{X\PYZus{}treino}\PY{p}{)}
+         \PY{n}{X\PYZus{}est} \PY{o}{=} \PY{n}{sc}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{X\PYZus{}est}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{}Definindo linear multiplo}
+         \PY{n}{modelo\PYZus{}linear} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}Ajustando o modelo}
+         \PY{n}{y\PYZus{}pred\PYZus{}linear} \PY{o}{=} \PY{n}{modelo\PYZus{}linear}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}treino}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{modelo\PYZus{}linear}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}treino}\PY{p}{)}\PY{p}{)}\PY{p}{)}    
+         \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{modelo\PYZus{}linear}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}treino}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{}Erro quadratico medio}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.424509368962
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}15}]:} 121.26944588696158
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{}Definindo o modelo Random Forest}
+         
+         \PY{n}{modelo\PYZus{}rf} \PY{o}{=} \PY{n}{RandomForestRegressor}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{)}
+         \PY{n}{modelo\PYZus{}rf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}treino}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{modelo\PYZus{}rf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}treino}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{modelo\PYZus{}rf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}treino}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.740413566285
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}16}]:} 54.700982567842566
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{c+c1}{\PYZsh{}Definindo o modelo Support Verctor Regression}
+         
+         \PY{n}{modelo\PYZus{}svr} \PY{o}{=} \PY{n}{SVR}\PY{p}{(}\PY{n}{kernel} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rbf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{C}\PY{o}{=}\PY{l+m+mf}{1e3}\PY{p}{,} \PY{n}{gamma}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{)}
+         \PY{n}{modelo\PYZus{}svr}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}treino}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{modelo\PYZus{}svr}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}treino}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{modelo\PYZus{}svr}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}treino}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.56446071797
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:} 91.778396632773209
+\end{Verbatim}
+            
+    O modelo que apresentou melhores resultados foi o Random Forest. Vamos
+preencher o valores faltantes com o resultado do melhor modelo.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{idades\PYZus{}pred} \PY{o}{=} \PY{n}{modelo\PYZus{}rf}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}est}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}Substituindo no banco de dados}
+         \PY{n}{dados4}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{dados4}\PY{o}{.}\PY{n}{Age}\PY{o}{.}\PY{n}{isnull}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{idades\PYZus{}pred}
+\end{Verbatim}
+
+
+    Agora vamos verificar se os valores estimados se distribuem próximo dos
+valores reais e assim podemos verifar se o modelo é o ideal para
+preencher valores faltantes na idade. Podemos visualizar isso pelo
+gráfico de histograma.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{kdeplot}\PY{p}{(}\PY{n}{dados4}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{shade} \PY{o}{=} \PY{k+kc}{True}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Idade Estimada}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{kdeplot}\PY{p}{(}\PY{n}{idade\PYZus{}conh}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{shade} \PY{o}{=} \PY{k+kc}{True}\PY{p}{,} \PY{n}{label} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Idade Real}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{xlabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Idade}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Densidade}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_35_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsection{Estatística Descritiva}\label{estatuxedstica-descritiva}
+
+    Como o banco de dados completo, podemos fazer diversas inferências sobre
+o incidente com o Titanic. Uma análise descritiva é primordial para nos
+dar conhecimento prévio sobre a distribuição dos dados. Nesta análise
+utilizaremos medidas de resumo e gráficos, também começaremos a
+responder as perguntas do teste.
+
+Primeiro vamos verificar o número de passageiros por sexo e classe
+social.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}20}]:} \PY{c+c1}{\PYZsh{}Palette de cores para os graficos}
+         \PY{n}{tabela\PYZus{}cores} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}78C850}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}  \PY{c+c1}{\PYZsh{} Grass}
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}F08030}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}  \PY{c+c1}{\PYZsh{} Fire}
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}6890F0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}  \PY{c+c1}{\PYZsh{} Water}
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}A8B820}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}  \PY{c+c1}{\PYZsh{} Bug}
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}A8A878}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}  \PY{c+c1}{\PYZsh{} Normal}
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}A040A0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}  \PY{c+c1}{\PYZsh{} Poison}
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}F8D030}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}  \PY{c+c1}{\PYZsh{} Electric}
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}E0C068}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}  \PY{c+c1}{\PYZsh{} Ground}
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}EE99AC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}  \PY{c+c1}{\PYZsh{} Fairy}
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}C03028}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}  \PY{c+c1}{\PYZsh{} Fighting}
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}F85888}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}  \PY{c+c1}{\PYZsh{} Psychic}
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}B8A038}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}  \PY{c+c1}{\PYZsh{} Rock}
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}705898}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}  \PY{c+c1}{\PYZsh{} Ghost}
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}98D8D8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}  \PY{c+c1}{\PYZsh{} Ice}
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}7038F8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}  \PY{c+c1}{\PYZsh{} Dragon}
+                         \PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{c+c1}{\PYZsh{}Graficos de numero de passageiros por sexo e classe}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{17}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{121}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{n}{dados4}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{dados4}\PY{o}{.}\PY{n}{Sex}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{ci} \PY{o}{=} \PY{k+kc}{None}\PY{p}{,} \PY{n}{palette} \PY{o}{=} \PY{n}{tabela\PYZus{}cores}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{labels} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Masculino}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Feminino}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{xlabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Número de passageiros no Titanic}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{122}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{n}{dados4}\PY{o}{.}\PY{n}{Pclass}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{n}{sort} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{n}{tabela\PYZus{}cores}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{,} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1° Classe}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2° Classe}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3° Classe}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Número de passageiros no Titanic}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{despine}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_39_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    É importante verificar a distribuição da idade dos passageiros.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{}Graficos da distribuicao de passageiros por idades}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{distplot}\PY{p}{(}\PY{n}{dados4}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{kde} \PY{o}{=} \PY{k+kc}{False}\PY{p}{,} \PY{n}{color} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{bins} \PY{o}{=} \PY{l+m+mi}{15}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{xlabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Idade}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ylabel} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Número de passageiros no Titanic}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_41_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Agora vamos começar a responder as questões do teste.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\tightlist
+\item
+  Existe diferença significativa entre as proporções de sobreviventes
+  entre homens e mulheres?
+\end{enumerate}
+
+\paragraph{Resposta:}\label{resposta}
+
+Primeiro calculamos as proporções de homens e mulheres sobreviventes.
+Essa proporção é dada na tabela abaixo.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{c+c1}{\PYZsh{}Sobreviventes por sexo}
+         \PY{n}{dados4}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{as\PYZus{}index} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}23}]:}    Sex  Survived
+         0    0  0.742038
+         1    1  0.188908
+\end{Verbatim}
+            
+    O número de mulheres que sobreviveram é acentuadamente maior em relação
+aos homens. Podemos avaliar a associação existente entre variáveis
+qualitativas realizando o teste \(\chi^2\) "qui-quadrado". O princípio
+básico deste teste é comparar proporções, ou seja, as possíveis
+divergências entre as frequências observadas e esperadas para um evento.
+A hipóteses que queremos testar são:
+
+Hipótese nula: As frequências observadas não são diferentes das
+frequências esperadas. Não existe diferença entre as frequências
+(contagens) de sobreviventes por sexo. Assim, não existe associação
+entre os grupos, sobreviventes por sexo.
+
+Hipótese alternativa: As frequências observadas são diferentes das
+frequências esperadas. Portanto existe diferença entre as frequências.
+Assim, existe associação entre os grupos sobreviventes por sexo.
+
+Para calcularmos o teste \(\chi^2\) criamos uma tabela com as
+frequências de sobreviventes por sexo:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{c+c1}{\PYZsh{}Tabela de contigencia}
+         \PY{n}{dados4}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+         \PY{n}{tabela\PYZus{}sbys} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}\PY{n}{dados4}\PY{p}{,} \PY{n}{values} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{columns} \PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{aggfunc} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{)}
+         \PY{n}{tabela\PYZus{}sbys}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}24}]:} Survived    0    1
+         Sex               
+         0          81  233
+         1         468  109
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{c+c1}{\PYZsh{}Teste X2 qui\PYZhy{}quadrado sobreviventes por sexo}
+         \PY{n}{obs} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{n}{tabela\PYZus{}sbys}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{tabela\PYZus{}sbys}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{]}
+         \PY{n}{x2}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{n}{dof}\PY{p}{,} \PY{n}{exp} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{chi2\PYZus{}contingency}\PY{p}{(}\PY{n}{obs}\PY{p}{)}
+         \PY{n}{x2}\PY{p}{,} \PY{n}{p}\PY{p}{,} \PY{n}{dof}    \PY{c+c1}{\PYZsh{}X2 calculado, p\PYZus{}valor, graus de liberdade}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}25}]:} (260.71702016732104, 1.1973570627755645e-58, 1)
+\end{Verbatim}
+            
+    O valor do \(\chi^2\) foi de 260,72 com p-valor de 1,19\(e^{-58}\),
+portanto, existe diferenças significativas entre os sobreviventes por
+sexo, havendo influência do sexo em relação a sobrevivencia.
+
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Existe diferença significativa entre as proporções de sobreviventes
+  entre classes diferentes?
+\end{enumerate}
+
+\paragraph{Resposta:}\label{resposta}
+
+O raciocínio para resolução dessa questão é o mesmo da quetão anterior,
+calculamos as proporções sobreviventes por classe social. Em seguida
+faremos uma tabela de contigência e faremos o teste qui-quadrado.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{c+c1}{\PYZsh{}Sobreviventes por classe social}
+         \PY{n}{dados4}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pclass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pclass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{as\PYZus{}index} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:}    Pclass  Survived
+         0       1  0.629630
+         1       2  0.472826
+         2       3  0.242363
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{c+c1}{\PYZsh{}Tabela de contigencia}
+         \PY{n}{tabela\PYZus{}sbyc} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}\PY{n}{dados4}\PY{p}{,} \PY{n}{values} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pclass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{columns} \PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{aggfunc} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{)}
+         \PY{n}{tabela\PYZus{}sbyc}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:} Survived    0    1
+         Pclass            
+         1          80  136
+         2          97   87
+         3         372  119
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{c+c1}{\PYZsh{}Teste X2 qui\PYZhy{}quadrado sobreviventes por classe}
+         \PY{n}{obs\PYZus{}c} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{n}{tabela\PYZus{}sbyc}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{tabela\PYZus{}sbyc}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{]}
+         \PY{n}{x2\PYZus{}c}\PY{p}{,} \PY{n}{p\PYZus{}c}\PY{p}{,} \PY{n}{dof\PYZus{}c}\PY{p}{,} \PY{n}{exp\PYZus{}c} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{chi2\PYZus{}contingency}\PY{p}{(}\PY{n}{obs\PYZus{}c}\PY{p}{)}
+         \PY{n}{x2\PYZus{}c}\PY{p}{,} \PY{n}{p\PYZus{}c}\PY{p}{,} \PY{n}{dof\PYZus{}c}    \PY{c+c1}{\PYZsh{}X2 calculado, p\PYZus{}valor, graus de liberdade}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}28}]:} (102.88898875696056, 4.5492517112987927e-23, 2)
+\end{Verbatim}
+            
+    O valor do \(\chi^2\) foi de 102,89 com p-valor de 4,24\(e^{-23}\),
+portanto, existe diferenças significativas entre os sobreviventes por
+classe social, existindo influência da classe social em relação a
+sobrevivencia.
+
+Para uma interpretação mais interativa foi criado gráficos com relação
+aos sobreviventes por sexo, classe social e por sexo e classe social.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}29}]:} \PY{c+c1}{\PYZsh{}Graficos de sobreviventes por sexo e classe social}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{17}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{131}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{dados}\PY{p}{,} \PY{n}{ci} \PY{o}{=} \PY{k+kc}{None}\PY{p}{,} \PY{n}{palette} \PY{o}{=} \PY{n}{tabela\PYZus{}cores}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{labels} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Masculino}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Feminino}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{xlabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Proporção de Sobreviventes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{despine}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{132}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pclass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{dados}\PY{p}{,} \PY{n}{ci} \PY{o}{=} \PY{k+kc}{None}\PY{p}{,} \PY{n}{palette} \PY{o}{=} \PY{n}{tabela\PYZus{}cores}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{labels} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1° Classe}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2° Classe}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3° Classe}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{xlabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Proporção de Sobreviventes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{despine}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{subplot}\PY{p}{(}\PY{l+m+mi}{133}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pclass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{dados}\PY{p}{,} \PY{n}{ci} \PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{palette} \PY{o}{=} \PY{n}{tabela\PYZus{}cores}\PY{p}{)}
+         \PY{n}{line1} \PY{o}{=} \PY{n}{mlines}\PY{o}{.}\PY{n}{Line2D}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}78C850}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Masculino}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{line2} \PY{o}{=} \PY{n}{mlines}\PY{o}{.}\PY{n}{Line2D}\PY{p}{(}\PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{p}{]}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}F08030}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}  \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Feminino}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidth}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{ncol}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{loc}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{best}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{handles}\PY{o}{=}\PY{p}{[}\PY{n}{line1}\PY{p}{,} \PY{n}{line2}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{labels} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1° Classe}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2° Classe}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3° Classe}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{xlabel} \PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Proporção de Sobreviventes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{despine}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_53_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Pelo gráfico de sobreviventes por sexo, temos que mais de 74,20\% das
+mulheres sobreviveram enquanto apenas 18,89\% dos homens sobrevivrem,
+pelo teste qui-quadrado e considerando um nível de significância de 5\%
+(p-valor) essa diferença é . Em relação a classe social, 62,96\% dos
+passageiros da primeira classe sobreviveram enquanto que apenas 24,23\%
+dos passageiros da 3° classe sobreviveram, é importante ressaltar que a
+3° classe possui o maior número de passageiros. De forma geral as
+mulheres possuem a maior chance de sobreviver independente da classe, no
+entanto mulheres da primeira classe possuem o dobro de chances de
+sobreviverem em relação à mulheres da 3° classe. Já, homens possuem
+menor chance de sobrevivência em relação às mulheres, independente da
+classe. No entanto, homens da 1° classe duas vezes mais chances de
+sobreviverem que homens da 3° classe.
+
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Existe diferença significativa entre as proporções de sobreviventes
+  entre faixas etárias diferentes? Quão mais velho você precisa ser para
+  que você não saísse vivo do desastre?
+\end{enumerate}
+
+\paragraph{Resposta}\label{resposta}
+
+A pirâmide etária definida pelo IBGE possui 21 classes, porém com esse
+número de classes fica difícil visulaizar alguma informção de forma mais
+simples. Segundo os estatísticos Moretin e Bussab o mínimo de 5 e o
+máximo 15 classes é o mais indicado para o resumo de qualquer variável.
+Dessa forma, utilizaremos 11 classes para resumir a faixa etária de
+passageiros. Posteriomente, criamos a sequência com os intervalos das
+classes e em seguida vamos criar uma nova coluna na nossa tabela com a
+indicação da faxa etária de cada passageiro. As classes representam os
+intervalos numéricos em que a variável quantitativa foi classificada. A
+amplitude da classe é determinada por
+\(\frac{max(Idade) - min(Idade)}{N. classes}\).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}30}]:} \PY{c+c1}{\PYZsh{}Definindo a sequencia de classes, a menor idade é 0,4 e a maior é 81 anos,}
+         \PY{c+c1}{\PYZsh{}assim,o valores minimo e maximo do nosso intervalo sera 0 e 81.}
+         \PY{c+c1}{\PYZsh{}Amplitude}
+         
+         \PY{n}{n} \PY{o}{=} \PY{l+m+mi}{10}
+         \PY{n}{amp} \PY{o}{=} \PY{n+nb}{round}\PY{p}{(}\PY{p}{(}\PY{n}{dados4}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{max}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{dados4}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{min}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{n}{n}\PY{p}{)}
+         \PY{n}{intervalos} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{89}\PY{p}{,} \PY{n+nb}{int}\PY{p}{(}\PY{n}{amp}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}Agrupando a idade pela faixa etaria}
+         \PY{n}{dados4}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FaixaEtaria}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{nan}
+         
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{intervalos}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+             \PY{n}{dados4}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{dados4}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{intervalos}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{dados4}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{n}{intervalos}\PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FaixaEtaria}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{i}  
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}31}]:} \PY{c+c1}{\PYZsh{}Sobreviventes por faixa etária}
+         \PY{n}{dados4}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FaixaEtaria}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{groupby}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FaixaEtaria}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{as\PYZus{}index} \PY{o}{=} \PY{k+kc}{False}\PY{p}{)}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}31}]:}     FaixaEtaria  Survived
+         0           0.0  0.627119
+         1           1.0  0.428571
+         2           2.0  0.361386
+         3           3.0  0.344130
+         4           4.0  0.401274
+         5           5.0  0.311828
+         6           6.0  0.474576
+         7           7.0  0.423077
+         8           8.0  0.000000
+         9           9.0  0.000000
+         10         10.0  1.000000
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}32}]:} \PY{c+c1}{\PYZsh{}Graficos da ddensidade de sobreviventes por faixa etaria}
+         
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{barplot}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FaixaEtaria}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{data} \PY{o}{=} \PY{n}{dados4}\PY{p}{,} \PY{n}{ci} \PY{o}{=} \PY{k+kc}{None}\PY{p}{,} \PY{n}{palette} \PY{o}{=} \PY{n}{tabela\PYZus{}cores}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set\PYZus{}xticklabels}\PY{p}{(}\PY{n}{labels} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{0 a 7}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{8 a 15}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{16 a 23}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{14 a 31}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{32 a 39}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{40 a 47}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                                     \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{48 a 55}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{56 a 63}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{64 a 71}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{72 a 79}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{80 a 87}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{set}\PY{p}{(}\PY{n}{xlabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Idades}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Proporção de Sobreviventes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{despine}\PY{p}{(}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_58_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Vamos verificar se existe diferenças entre as faixas etárias, criamos
+uma tabela de contigência com as frequências de sobreviventes e não
+sobreviventes, poteriomente será realizado o teste \(\chi^2\).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{c+c1}{\PYZsh{}Tabela de contigencia}
+         \PY{n}{tabela\PYZus{}sbyf} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{pivot\PYZus{}table}\PY{p}{(}\PY{n}{dados4}\PY{p}{,} \PY{n}{values} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{N}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{index} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FaixaEtaria}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{columns} \PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{aggfunc} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sum}\PY{p}{)}
+         
+         \PY{n}{tabela\PYZus{}sbyf}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{tabela\PYZus{}sbyf}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{tabela\PYZus{}sbyf}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}33}]:} Survived         0     1
+         FaixaEtaria             
+         0.0           22.0  37.0
+         1.0           20.0  15.0
+         2.0          129.0  73.0
+         3.0          162.0  85.0
+         4.0           94.0  63.0
+         5.0           64.0  29.0
+         6.0           31.0  28.0
+         7.0           15.0  11.0
+         8.0           11.0   0.0
+         9.0            1.0   0.0
+         10.0           0.0   1.0
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{c+c1}{\PYZsh{}Teste X2 qui\PYZhy{}quadrado sobreviventes por faixa etaria}
+         \PY{n}{obs\PYZus{}fe} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{n}{tabela\PYZus{}sbyf}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{tabela\PYZus{}sbyf}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{]}
+         \PY{n}{x2\PYZus{}fe}\PY{p}{,} \PY{n}{p\PYZus{}fe}\PY{p}{,} \PY{n}{dof\PYZus{}fe}\PY{p}{,} \PY{n}{exp\PYZus{}fe} \PY{o}{=} \PY{n}{stats}\PY{o}{.}\PY{n}{chi2\PYZus{}contingency}\PY{p}{(}\PY{n}{obs\PYZus{}fe}\PY{p}{)}
+         \PY{n}{x2\PYZus{}fe}\PY{p}{,} \PY{n}{p\PYZus{}fe}\PY{p}{,} \PY{n}{dof\PYZus{}fe}    \PY{c+c1}{\PYZsh{}X2 calculado, p\PYZus{}valor, graus de liberdade}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}34}]:} (30.682802266334072, 0.00066182239153781959, 10)
+\end{Verbatim}
+            
+    Dessa forma, verificamos que existe diferença significativa entre o
+grupo de sobreviventes pelas diferentes faixas etárias, ou seja, a faixa
+etária influencia nas chances de sobrevivência. Em relação há quanto
+mais velho você precisa ser para ter menos chances de sobreviver, é
+possível responder esta pergunta pelo gráfico da proporção de
+sobreviventes por faixa etária. Por esse gráfico podemos visualizar que
+a maior chance de sobreviver é de passageiros na classe de 0 a 7 anos,
+logo a partir do limite dessa classe as chances de sobreviver diminuem,
+cabe resaltar que a partir dos 64 anos de vida a probabilidade de
+sobrevivência foi quase nula, há não ser pelo fato que na classe de 80 a
+88 anos, 100\% dos passageiros sobreviveram, porém pela tabela de
+contigência constatamos que existe apenas uma ocorrência para essa faixa
+etária, ou seja, apenas uma pessoa acima de 64 anos de idade sobreviveu.
+Logo, qualquer pessoa com menos de 64 anos de idade possui melhores
+chances de sobreviver e com menos de 7 anos de idade essa probabilidade
+aumenta para mais de 60\%.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Quais variáveis explicam melhor os dados? Explique quais testes e
+  modelos foram utilizados em sua resposta.
+\end{enumerate}
+
+\paragraph{Resposta:}\label{resposta}
+
+Em um primeiro instante, pode-se pensar que quanto maior o banco de
+dados, representados por um volume elevado de variáveis descritivas de
+observações, seja preferível para a explicação de um fenômeno. Contudo,
+algumas variáveis não acrescentam nehuma informação adicional para
+explicação do fenômeno, além de um grande número de variáveis aumentar a
+dimensionalidade dos dados gerando alto custo computacional e as vezes
+inserindo um viés ao modelo. A alta dimensionalidade, ito é, muitos
+atributos, ou colunas falando de banco de dados é um fator crítico para
+o desempenho de muitos algoritmos. Diasnte disso, é importante verificar
+quais as variáveis que mais contribuem para o estudo. A correlação entre
+as variáveis dependentes pode trazer essa informação, lembrando que,
+variáveis que apresentarem baixa correlação podem ser excluídas do
+modelo e variáveis com alta correlação entre si podem ser substituidas
+uma pela outra para evitar o problema da autocorrelação. Cabe ressaltar
+que quase todos os métodos da estatística classe para inferir
+contribuição de variáveis são lineares, logo ao se trabalhar com
+problemas não lineares esses métodos apresentam baixa eficiência. Uma
+alternativa é fazer uso de modelos de machine learning como, árvores de
+decisões, florestas aleátorias e redes neurais.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{c+c1}{\PYZsh{}Dados}
+         
+         \PY{n}{dados5} \PY{o}{=} \PY{n}{dados4}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pclass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SibSp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Parch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fare}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Embarked}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Family}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FaixaEtaria}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{}Definindo a variavel resposta (dependente) e as variáveis preditoras (independentes)}
+         
+         \PY{n}{y\PYZus{}target} \PY{o}{=} \PY{n}{dados5}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{X\PYZus{}feature} \PY{o}{=} \PY{n}{dados5}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:}\PY{p}{:}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{c+c1}{\PYZsh{}Matriz de correlacao}
+         
+         \PY{n}{matriz\PYZus{}corr} \PY{o}{=} \PY{n}{dados5}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{25}\PY{p}{,}\PY{l+m+mi}{16}\PY{p}{)}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{plt}\PY{o}{.}\PY{n}{yticks}\PY{p}{(}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n}{fontsize}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{)}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{matriz\PYZus{}corr}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{viridis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{linewidths}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,}\PY{n}{vmax}\PY{o}{=}\PY{l+m+mf}{1.0}\PY{p}{,} \PY{n}{square}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{annot}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_64_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    A Matriz de Correlação permite calcular a correlação entre variáveis
+através dos coeficiente de correlção de Pearson, Sperman ou Kendal. O
+heatmap criado acima, indica o nível de correlação de cada variável em
+uma graduação de cores, quanto mais amarela a variável, maior a
+correlação. Esse gráfico é útil para detectar quais variáveis possuem
+maior correlação com a variável respota e com as demais variáveis
+independentes. Pelo gráfico as variáveis que possuem maior correlação
+com a variável resposta são: Classe, Sexo, Fare e Embarked, logo essas
+variáveis podem explicar melhor a sobrevivência. Já, as variáveis Age e
+FaixaEtaria são autocorrelacionadas, bem como as variáveis Family, SibSp
+e Parch. Em modelos de regressão essas variáveis devem ser substituídas
+pela que apresentar maior correlação com a variável sobrevivência.
+
+A matriz de correlação é um método linear, diante disso em problemas não
+lineares ela pode não encontrar relção entre as variáveis. Para reverter
+o problema da não linearidade foi utilizado o modelo Random Forest para
+estimar a sobrevivência e classificar as variáveis mais importantes. As
+metodologias baseadas em árvores de decisão são as mais utilizadas para
+encontrar relação entre variáveis.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}37}]:} \PY{c+c1}{\PYZsh{}Definindo o modelo Random Forest}
+         
+         \PY{n}{modelo\PYZus{}rf1} \PY{o}{=} \PY{n}{RandomForestRegressor}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{)}
+         \PY{n}{modelo\PYZus{}rf1}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}feature}\PY{p}{,} \PY{n}{y\PYZus{}target}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}target}\PY{p}{,} \PY{n}{modelo\PYZus{}rf1}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}feature}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}target}\PY{p}{,} \PY{n}{modelo\PYZus{}rf1}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}feature}\PY{p}{)}\PY{p}{)}
+         \PY{n}{importances} \PY{o}{=} \PY{n}{modelo\PYZus{}rf1}\PY{o}{.}\PY{n}{feature\PYZus{}importances\PYZus{}}
+         \PY{n}{std} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{[}\PY{n}{tree}\PY{o}{.}\PY{n}{feature\PYZus{}importances\PYZus{}} \PY{k}{for} \PY{n}{tree} \PY{o+ow}{in} \PY{n}{modelo\PYZus{}rf1}\PY{o}{.}\PY{n}{estimators\PYZus{}}\PY{p}{]}\PY{p}{,}
+                      \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+         \PY{n}{indices} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{argsort}\PY{p}{(}\PY{n}{importances}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.892298907404
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{c+c1}{\PYZsh{} Grafico para importancia das variaveis}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{(}\PY{p}{[}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{bar}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{X\PYZus{}feature}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{n}{importances}\PY{p}{[}\PY{n}{indices}\PY{p}{]}\PY{p}{,}
+                \PY{n}{color}\PY{o}{=}\PY{n}{tabela\PYZus{}cores}\PY{p}{,} \PY{n}{align}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{center}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{X\PYZus{}feature}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sexo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Idade}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Taxa}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Classe}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Família}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Faixa Etária}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                                                \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Irmãos/Conjugues}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Título}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Porto}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Filhos/Pais}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xlim}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{X\PYZus{}feature}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}[\PYZsq{}Sexo\PYZsq{}, \PYZsq{}Idade\PYZsq{}, \PYZsq{}Taxa\PYZsq{}, \PYZsq{}Classe\PYZsq{}, \PYZsq{}Família\PYZsq{}, \PYZsq{}Faixa Etária\PYZsq{}, \PYZsq{}Irmãos/Conjugues\PYZsq{}, \PYZsq{}Título\PYZsq{},  \PYZsq{}Porto\PYZsq{}, \PYZsq{}Filhos/Pais\PYZsq{}]}
+         \PY{c+c1}{\PYZsh{}[\PYZsq{}Pclass\PYZsq{}, \PYZsq{}Sex\PYZsq{},\PYZsq{}Age\PYZsq{}, \PYZsq{}SibSp\PYZsq{}, \PYZsq{}Parch\PYZsq{}, \PYZsq{}Fare\PYZsq{}, \PYZsq{}Embarked\PYZsq{}, \PYZsq{}Family\PYZsq{}, \PYZsq{}Title\PYZsq{}, \PYZsq{}FaixaEtaria\PYZsq{}]}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_67_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Com o modelo random forest classificamos as variáveis mais importantes.
+Assim, Sexo, Idade, Taxa e Classe são as variáveis que possuem maior
+informção sobre a variável sobrevivência. É importante destacar que, se
+as variáveis independentes não são autocorrelacionas "o que gera
+estimativa viesada em modelos de regressão", podemos utilizar todas as
+variáveis ou apenas as mais importantes que os resultados são
+semelhantes. Usar todas as variáveis, salvo a única restrição de
+autocorrelação em modelos de regressão, não prejudica significativamente
+o desempenho do modelo, apenas gera maior custo computacional, se o
+custo computacional é um fator limitante, estimativas com as variáveis
+mais importantes gera resultados estatísticamente semelhantes.
+
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  Crie um modelo que defina a probabilidade de sobrevivência a partir
+  das características de cada passageiro. Obs.: Siga uma metodologia que
+  valide o modelo criado.
+\end{enumerate}
+
+\paragraph{Resposta:}\label{resposta}
+
+O modelo clássico para este tipo de análise é o modelo de regressão
+logística. Com ele podemos estimar a probalidade de alguém sobreviver de
+acordo com as informações obtidas com as demais variáveis.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}66}]:} \PY{c+c1}{\PYZsh{}Dados}
+         
+         \PY{c+c1}{\PYZsh{}Todas as variaveis}
+         \PY{n}{dados5} \PY{o}{=} \PY{n}{dados4}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pclass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SibSp}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Parch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fare}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Embarked}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Family}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FaixaEtaria}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         
+         
+         \PY{c+c1}{\PYZsh{}Variaveis mais importantes pelo random forest}
+         \PY{n}{dados6} \PY{o}{=} \PY{n}{dados4}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Survived}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pclass}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Sex}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Age}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Fare}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+         
+         
+         \PY{c+c1}{\PYZsh{}Todas as variaveis}
+         
+         \PY{n}{y\PYZus{}target} \PY{o}{=} \PY{n}{dados5}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{X\PYZus{}feature} \PY{o}{=} \PY{n}{dados5}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:}\PY{p}{:}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{}Variaveis escolhida pelo Random forest}
+         
+         \PY{n}{y\PYZus{}target1} \PY{o}{=} \PY{n}{dados6}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{X\PYZus{}feature1} \PY{o}{=} \PY{n}{dados6}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{:}\PY{p}{:}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}67}]:} \PY{c+c1}{\PYZsh{}Regressao logistica com todas as variaveis}
+         
+         \PY{n}{modelo\PYZus{}lr} \PY{o}{=} \PY{n}{LogisticRegression}\PY{p}{(}\PY{n}{C}\PY{o}{=}\PY{l+m+mf}{1.}\PY{p}{,} \PY{n}{solver}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lbfgs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{modelo\PYZus{}lr}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}feature}\PY{p}{,} \PY{n}{y\PYZus{}target}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{modelo\PYZus{}lr}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}feature}\PY{p}{,} \PY{n}{y\PYZus{}target}\PY{p}{)}\PY{p}{)}          \PY{c+c1}{\PYZsh{}Acuracia do modelo}
+         \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}target}\PY{p}{,} \PY{n}{modelo\PYZus{}lr}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}feature}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.808080808081
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}67}]:} 0.19191919191919191
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}69}]:} \PY{c+c1}{\PYZsh{}Regressao logistica com as variaveis Sexo, Idade, Classe e Taxa}
+         
+         \PY{n}{modelo\PYZus{}lr1} \PY{o}{=} \PY{n}{LogisticRegression}\PY{p}{(}\PY{n}{C}\PY{o}{=}\PY{l+m+mf}{1.}\PY{p}{,} \PY{n}{solver}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lbfgs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{modelo\PYZus{}lr1}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}feature1}\PY{p}{,} \PY{n}{y\PYZus{}target1}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{modelo\PYZus{}lr1}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{X\PYZus{}feature1}\PY{p}{,} \PY{n}{y\PYZus{}target1}\PY{p}{)}\PY{p}{)}          \PY{c+c1}{\PYZsh{}Acuracia do modelo}
+         \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}target1}\PY{p}{,} \PY{n}{modelo\PYZus{}lr1}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}feature1}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.792368125701
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}69}]:} 0.20763187429854096
+\end{Verbatim}
+            
+    O resultados com ambos os modelos logísticos são semelhantes, daí
+podemos concluir que com apenas as quatros variáveis podemos obter
+resultados semelhantes e no caso desse modelo de regressão não caímos no
+problema de autoccorrelação de variáveis. A acurácia do modelo é de
+aproximadamente 80\%, ou seja, o modelo está bem ajustado.
+
+Como não exite preocupação com o custo computacional podemos treinar o
+algoritmo random forest com todas as variáveis e verificar o seu
+desenpenho.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{n}{modelo\PYZus{}rf2} \PY{o}{=} \PY{n}{RandomForestRegressor}\PY{p}{(}\PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{1000}\PY{p}{)}
+         \PY{n}{modelo\PYZus{}rf2}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}feature2}\PY{p}{,} \PY{n}{y\PYZus{}target2}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{r2\PYZus{}score}\PY{p}{(}\PY{n}{y\PYZus{}target2}\PY{p}{,} \PY{n}{modelo\PYZus{}rf2}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}feature2}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+         \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}target2}\PY{p}{,} \PY{n}{modelo\PYZus{}rf2}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}feature2}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.885175172306
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}52}]:} 0.027156815691676252
+\end{Verbatim}
+            
+    Todos os modelos apresentam resultados estatisticamente significantes,
+porém o modelo com menor erro quadrado médio é o mais indicado para
+realizar estimativas. Um ponto positivo do modelo logístico é que é
+possível facilmente estimar a probabilidade de sobrevivência de um
+passageiro.
+
+    \begin{enumerate}
+\def\labelenumi{\arabic{enumi})}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  Bônus: Qual probabilidade de um homem solteiro de 19 anos que embarcou
+  em Southampton sozinho na terceira classe sobreviva ao desastre?
+\end{enumerate}
+
+\paragraph{Resposta:}\label{resposta}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}70}]:} \PY{c+c1}{\PYZsh{}Calculando a probalidade}
+         \PY{c+c1}{\PYZsh{}Lembrando a ordem das informacoes de X}
+         \PY{c+c1}{\PYZsh{}Codificacoes}
+         \PY{c+c1}{\PYZsh{}Sex}
+         \PY{c+c1}{\PYZsh{}female = 0, male = 1,}
+         \PY{c+c1}{\PYZsh{}Embarked}
+         \PY{c+c1}{\PYZsh{}C = 0, Q = 1, S = 2}
+         \PY{c+c1}{\PYZsh{}Title}
+         \PY{c+c1}{\PYZsh{}Master = 0, Miss = 1, Mr = 2, Mrs = 3, Rich = 4}
+         \PY{c+c1}{\PYZsh{}[\PYZsq{}Pclass\PYZsq{}, \PYZsq{}Sex\PYZsq{},\PYZsq{}Age\PYZsq{}, \PYZsq{}SibSp\PYZsq{}, \PYZsq{}Parch\PYZsq{}, \PYZsq{}Fare\PYZsq{}, \PYZsq{}Embarked\PYZsq{}, \PYZsq{}Family\PYZsq{}, \PYZsq{}Title\PYZsq{}, \PYZsq{}FaixaEtaria\PYZsq{}]}
+         
+         \PY{n}{X\PYZus{}novo} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mf}{3.}\PY{p}{,} \PY{l+m+mf}{1.}\PY{p}{,} \PY{l+m+mf}{19.}\PY{p}{,} \PY{l+m+mf}{0.}\PY{p}{]}\PY{p}{)}
+         \PY{n}{modelo\PYZus{}lr1}\PY{o}{.}\PY{n}{predict\PYZus{}proba}\PY{p}{(}\PY{n}{X\PYZus{}novo}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/usr/local/lib/python3.5/dist-packages/sklearn/utils/validation.py:395: DeprecationWarning: Passing 1d arrays as data is deprecated in 0.17 and will raise ValueError in 0.19. Reshape your data either using X.reshape(-1, 1) if your data has a single feature or X.reshape(1, -1) if it contains a single sample.
+  DeprecationWarning)
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}70}]:} array([[ 0.87950816,  0.12049184]])
+\end{Verbatim}
+            
+    Logo, um passageiro com essas características tem probalidade de
+sobrevivência de 12,04\%.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
