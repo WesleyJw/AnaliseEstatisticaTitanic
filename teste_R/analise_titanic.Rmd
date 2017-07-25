@@ -1,0 +1,50 @@
+---
+title: "Análise Estaística - Dados Titanic"
+author: "Wesley Lima"
+date: "24 de julho de 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Pacotes necessários para análise
+
+```{r}
+library(ggplot2)
+library(hydroGOF)
+library(caTools)
+library(randomForest)
+library(mice)
+library(ggthemes) 
+library(scales) 
+library(dplyr) 
+library(mice) 
+library(Amelia)
+```
+
+
+
+## Primeira análise do Banco de Dados
+
+É importante conhecer os tipos de variáveis presentes no banco de dados. Identificar as variáveis qualitativas e contínuas. 
+
+```{r}
+dados <- read.csv('/home/wesley/MEGAsync/teste_estatistico/titanic_orig.csv', h = T)
+head(dados)
+```
+
+
+
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
